@@ -15,12 +15,12 @@ jobs:
     - name: Checkout Private Repo
       uses: actions/checkout@v2
       with:
-        repository: owner/private-repo
-        token: ${{ secrets.TOKEN }}
+        repository: Sidhsksjsjsh/Execute-Script
+        token: ${{ secrets.GITHUB_TOKEN }}
         path: private-repo
 
     - name: Copy Private Files
-      run: cp -r private-repo/path/to/private/files ./path/to/destination
+      run: cp -r private-repo/.lua ./path/to/destination
 
     - name: Commit and Push
       run: |
@@ -29,4 +29,3 @@ jobs:
         git add .
         git commit -m 'Sync private files'
         git push
-        
