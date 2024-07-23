@@ -1,0 +1,32 @@
+name: Sync Private Files
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-files:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Public Repo
+      uses: actions/checkout@v2
+
+    - name: Checkout Private Repo
+      uses: actions/checkout@v2
+      with:
+        repository: owner/private-repo
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: private-repo
+
+    - name: Copy Private Files
+      run: cp -r private-repo/path/to/private/files ./path/to/destination
+
+    - name: Commit and Push
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add .
+        git commit -m 'Sync private files'
+        git push
+        
